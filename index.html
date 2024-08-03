@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            /* background-image: url(https://images.pexels.com/photos/2312040/pexels-photo-2312040.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1); */
+            background-color: rgb(4, 38, 47);
+            display: flex;
+            justify-content: center;
+            /* align-items: center; */
+        }
+        .container{
+            background-color: rgb(161, 133, 146);
+            height: 90vh;
+            width: 40vw;
+            /* display: grid;
+            justify-content: center; */
+            text-align: center;
+            display: block;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-weight: 600;
+        }
+        .jumble{
+            color: white;
+            font-size: xx-large;
+        }
+        #answer{
+            width: 30vw;
+            height: 10vh;
+            font-size: xx-large;
+            margin-top: 10vh;
+        }
+        button{
+            height: 10vh;
+            width: 10vw;
+            margin-top:3vh;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <p class="jumble" >JUMBLED WORD: <br> <span id="jumbled-sentence"></span> </p>
+        <input type="text" name="" id="answer" placeholder="Enter your answer" ><br> 
+        <button type="submit" id="submit" >Submit</button>
+        <p id="message"></p>
+        <p><span id="current-time"></span> </p>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function(){
+            var sentences = [
+                { original: "The quick brown fox", jumbled: "ehT kciuq nworb xof" },
+                { original: "Jumps over the lazy dog", jumbled: "spmuJ revo eht yzal god" },
+                { original: "A stitch in time saves nine", jumbled: "A cstith ni emti sevsa inen" },
+                { original: "Actions speak louder than words", jumbled: "sntocAi kaeps rdoule htan dsrow" },
+                { original: "Beauty is in the eye of the beholder", jumbled: "taeuyB si ni eht eye fo eht redolheb" },
+                { original: "Better late than never", jumbled: "eBtter etla naht revne" },
+                { original: "Practice makes perfect", jumbled: "tPractcie sekam cerfpet" }
+            ];
+
+            var jubmledSentencesElement = document.getElementById("jumbled-sentence");
+            var index = 0;
+            var inputField = document.getElementById("answer");
+            var messageElement = document.getElementById("message");
+            var timeLeft = 120;
+            var timer;
+            var timerElement = document.getElementById("current-time");
+
+            // shuffling an array
+            function shuffleArray(array) {
+                let shuffled = array.slice(); // Create a copy of the array
+                for (let i = shuffled.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+                }
+                return shuffled;
+            }
+
+            // Original array
+            let originalArray = [0, 1, 2, 3, 4, 5, 6];
+
+            // Shuffle the array and store it in a new variable
+            let shuffledArray = shuffleArray(originalArray);
+
+
+
+            function startGame(){
+
+                currentIndex = shuffledArray[index];
+                timeLeft = 120;
+                displayNextJumble();
+                startTimer();
+                // alert(shuffledArray+ "_" + currentIndex);
+            }
+
+            
+
+            function displayNextJumble(){
+                if (index < sentences.length){
+                    jubmledSentencesElement.textContent = sentences[currentIndex].jumbled;
+                    inputField.value= "";
+                    inputField.focus();
+                    // document.getElementById("submit").focus();
+                    // messageElement.textContent = "testing";
+                }
+                else {
+                    clearInterval(timer);
+                    messageElement.textContent = "Congratulations! You solved all the jumbled sentences!";
+                    window.location.href = "final.html";
+                }
+            }
+
+            function checkAnswer() {
+                var userAnswer = inputField.value.trim();
+                if (userAnswer === sentences[currentIndex].original) {
+                    index++;
+                    currentIndex=shuffledArray[index];
+                    messageElement.textContent = "Correct! Answer.";
+                    popup();
+                    displayNextJumble();
+                } else {
+                    messageElement.textContent = "Incorrect! Starting over.";
+                    popup();
+                    startGame();
+                }
+            }
+
+            function startTimer() {
+                clearInterval(timer);
+                timer = setInterval(function() {
+                    timeLeft--;
+                    timerElement.textContent = "Time left: " + timeLeft + " seconds";
+                    if (timeLeft <= 0) {
+                        clearInterval(timer);
+                        messageElement.textContent = "Time's up! Starting over.";
+                        popup();
+                        alert("Game over. Click ok to restart");
+                        // alert("Times up");
+                        startGame();
+                    }
+                }, 1500);
+            }
+
+            function popup(){
+                setTimeout(function() {
+                messageElement.style.display = 'none';
+            }, 3000);
+                // messageElement.style.display= 'block';
+            }
+
+            function moveFocusToButton(event) {
+            if (event.key === 'Enter') {
+                document.getElementById('submit').focus();
+            }
+        }
+
+        window.onload = function() {
+            inputField.addEventListener('keydown', moveFocusToButton);
+        }
+
+        document.getElementById("submit").addEventListener("click", checkAnswer);
+
+            startGame();
+        });
+    </script>
+</body>
+</html>
