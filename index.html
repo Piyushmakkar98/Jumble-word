@@ -64,7 +64,7 @@
             var index = 0;
             var inputField = document.getElementById("answer");
             var messageElement = document.getElementById("message");
-            var timeLeft = 120;
+            var timeLeft = 101;
             var timer;
             var timerElement = document.getElementById("current-time");
 
@@ -89,12 +89,11 @@
             function startGame(){
 
                 currentIndex = shuffledArray[index];
-                timeLeft = 120;
+                timeLeft = 101;
                 displayNextJumble();
                 startTimer();
                 // alert(shuffledArray+ "_" + currentIndex);
             }
-
             
 
             function displayNextJumble(){
@@ -123,7 +122,7 @@
                 } else {
                     messageElement.textContent = "Incorrect! Starting over.";
                     popup();
-                    startGame();
+                    // startGame();
                 }
             }
 
