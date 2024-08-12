@@ -72,16 +72,17 @@
     </div>
     <script>
         document.addEventListener("DOMContentLoaded", function(){
+        
             var sentences = [
                 { original: "The quick brown fox", jumbled: "ehT kciuq nworb xof" },
                 { original: "Jumps over the lazy dog", jumbled: "spmuJ revo eht yzal god" },
-                { original: "A stitch in time saves nine", jumbled: "A cstith ni emti sevsa inen" },
-                { original: "Actions speak louder than words", jumbled: "sntocAi kaeps rdoule htan dsrow" },
+                { original: "Fortune favors the bold", jumbled: "eFotrnu srofav eht dlob" },
+                { original: "The cat chased the mouse", jumbled: "ehT tac desahc eht esuom" },
                 { original: "Beauty is in the eye of the beholder", jumbled: "taeuyB si ni eht eye fo eht redolheb" },
                 { original: "Better late than never", jumbled: "eBtter etla naht revne" },
                 { original: "Practice makes perfect", jumbled: "tPractcie sekam cerfpet" }
             ];
-
+    
             var jubmledSentencesElement = document.getElementById("jumbled-sentence");
             var index = 0;
             var inputField = document.getElementById("answer");
