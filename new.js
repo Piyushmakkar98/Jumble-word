@@ -90,7 +90,7 @@ document.addEventListener("DOMContentLoaded", function(){
                 clearInterval(timer);
                 messageElement.textContent = "Time's up! Starting over.";
                 popup();
-                alert("Game over. Click ok to restart");
+                alert("Time's up! Click ok to restart.");
                 score=0;
                 scoreElement.textContent=score + "/7";
                 // alert("Times up");
